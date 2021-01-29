@@ -8,6 +8,8 @@ output:
     highlight: zenburn
     toc: true
     toc_depth: 2
+    keep_md: yes
+    self_contained: TRUE
 ---
 
 <br>
@@ -142,13 +144,12 @@ pattern <- cenovus %>%
   filter(between(date, as.Date("2019-04-04"), as.Date("2019-05-06")))
 
 
-(cenovus %>% 
+cenovus %>% 
   ggplot(aes(x = date, y = CVE.Open)) +
   geom_line() +
   geom_line(data = pattern, color = "red") +
   labs(x = "") +
-  scale_x_date(breaks = "6 months", date_labels = "%Y-%m" )) %>% 
-  ggplotly()
+  scale_x_date(breaks = "6 months", date_labels = "%Y-%m" )
 
 
 ```
@@ -174,7 +175,7 @@ df3 <- df2 %>%
   mutate(rank1 = dense_rank(desc(cor1)))
 
 
-(ggplot() +
+ggplot() +
   ## Plot full series
   geom_line(data = cenovus, aes(x = date, y = CVE.Open), color = "grey") +
   ## Plot pattern
@@ -183,8 +184,7 @@ df3 <- df2 %>%
   geom_line(data = filter(df3, rank1<=3), aes(x = date, y = CVE.Open, group = grp), color = "purple") +
   scale_x_date(breaks = "12 months") +
   labs(x = "",
-       title = "Cenovus. Red: Pattern, Purple: top 3 matches")) %>% 
-  ggplotly()
+       title = "Cenovus. Red: Pattern, Purple: top 3 matches")
   
 ```
 
